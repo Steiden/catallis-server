@@ -4,19 +4,15 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) {
 	try {
 		const body = await request.json();
-		const { name, description, price, image, categoryId } = body;
+		const { name,  price, image, is_promo } = body;
 
 		const product = await prisma.product.create({
 			data: {
 				name,
-				description,
 				price,
 				image,
-				categoryId,
-			},
-			include: {
-				category: true,
-			},
+				is_promo,
+			}
 		});
 
 		return NextResponse.json(product, { status: 200 });

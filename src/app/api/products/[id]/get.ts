@@ -8,10 +8,7 @@ export async function GET(requset: NextRequest, { params }: { params: Promise<{ 
 		const product = await prisma.product.findUnique({
 			where: {
 				id,
-			},
-			include: {
-				category: true,
-			},
+			}
 		});
 
 		return NextResponse.json(product, { status: 200 });

@@ -5,7 +5,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 	try {
 		const { id } = await params;
 		const body = await request.json();
-		const { name, description, price, image, categoryId } = body;
+		const { name,  price, image, is_promo } = body;
 
 		const product = await prisma.product.update({
 			where: {
@@ -13,14 +13,10 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 			},
 			data: {
 				name,
-				description,
 				price,
 				image,
-				categoryId,
-			},
-			include: {
-				category: true,
-			},
+				is_promo
+			}
 		});
 
 		return NextResponse.json(product, { status: 200 });

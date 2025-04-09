@@ -1,35 +1,29 @@
-// scripts/generate-test-data.ts
 import { faker } from "@faker-js/faker";
 import { PrismaClient } from "@prisma/client";
 
+// Инициализация Prisma (для обращений к БД)
 const prisma = new PrismaClient();
 
 async function seed() {
-	await prisma.category.createMany({
-		data: [
-			{
-				name: "Электроника",
-			},
-			{
-				name: "Одежда",
-			},
-			{
-				name: "Еда",
-			},
-		],
-	});
+	// Изображения продуктов
+	const imageUrls: string[] = [
+		"http://localhost:8000/images/product1.png",
+		"http://localhost:8000/images/product2.png",
+		"http://localhost:8000/images/product3.png",
+		"http://localhost:8000/images/product4.png",
+		"http://localhost:8000/images/product5.png",
+		"http://localhost:8000/images/product6.png",
+	];
 
-	// Генерация продуктов
-	const categories = await prisma.category.findMany();
+	// Генерация фейковых продуктов
 	await Promise.all(
 		Array.from({ length: 50 }, () => {
 			return prisma.product.create({
 				data: {
 					name: faker.commerce.productName(),
-					description: faker.commerce.productDescription(),
-					image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.apple.com%2Fnewsroom%2F2024%2F09%2Fapple-introduces-iphone-16-and-iphone-16-plus%2F&psig=AOvVaw2ZY2VzYtlIxHHAI0CRj8c6&ust=1744084810242000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMiFprCExYwDFQAAAAAdAAAAABAJ",
+					image: imageUrls[faker.number.int({ min: 0, max: imageUrls.length - 1 })],
 					price: +faker.commerce.price(),
-					categoryId: categories[faker.number.int({ min: 0, max: categories.length - 1 })].id,
+					is_promo: faker.datatype.boolean(),
 				},
 			});
 		})
@@ -38,6 +32,7 @@ async function seed() {
 	console.log("Тестовые данные созданы!");
 }
 
+// Запуск сидера
 seed()
 	.catch((e) => {
 		console.error(e);
