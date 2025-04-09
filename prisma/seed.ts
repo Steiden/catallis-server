@@ -7,12 +7,12 @@ const prisma = new PrismaClient();
 async function seed() {
 	// Изображения продуктов
 	const imageUrls: string[] = [
-		"http://localhost:8000/images/product1.png",
-		"http://localhost:8000/images/product2.png",
-		"http://localhost:8000/images/product3.png",
-		"http://localhost:8000/images/product4.png",
-		"http://localhost:8000/images/product5.png",
-		"http://localhost:8000/images/product6.png",
+		"http://127.0.0.1:8000/images/product1.png",
+		"http://127.0.0.1:8000/images/product2.png",
+		"http://127.0.0.1:8000/images/product3.png",
+		"http://127.0.0.1:8000/images/product4.png",
+		"http://127.0.0.1:8000/images/product5.png",
+		"http://127.0.0.1:8000/images/product6.png",
 	];
 
 	// Генерация фейковых продуктов
