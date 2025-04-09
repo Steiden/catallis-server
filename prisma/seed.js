@@ -6,13 +6,13 @@ const prisma = new PrismaClient();
 
 async function seed() {
 	// Изображения продуктов
-	const imageUrls: string[] = [
-		"product1.png",
-		"product2.png",
-		"product3.png",
-		"product4.png",
-		"product5.png",
-		"product6.png",
+	const imageUrls = [
+		"product1.svg",
+		"product2.svg",
+		"product3.svg",
+		"product4.svg",
+		"product5.svg",
+		"product6.svg",
 	];
 
 	// Генерация фейковых продуктов
